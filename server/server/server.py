@@ -8,7 +8,7 @@ s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 s.bind((HOST,PORT))
 s.listen(1)
 arq = open()
-
+print('Testando 123...')
 for i in arq.readlines():
     s.send(i)
 
