@@ -1,22 +1,33 @@
-#serv_sock.py
+# client.py
 
-from socket import socket
+import socket
 
-HOST = ''
-PORT = 57000
+client: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # inicia o socket
 
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.bind((HOST, PORT))
-s.listen(1)
+client.connect(('localhost', 30000))  # conecta no servidor
 
-conn, addr = s.accept()
-arq = open('/home/backup/foo.tar.gz', 'w')
+file_path: str = str(input('Caminho do arquivo > '))  # endereço de onde vai ser upado
 
-while 1:
-    dados = conn.recv(1024)
-    if not dados:
-        break
-    arq.write(dados)
+client.send(file_path.encode())  # pega o arquivo, transforma em bytes e envia
 
-arq.close()
-conn.close()
+
+def send_file(fp: str):
+    """Sends a file to the server using sockets.
+
+    Args:
+        fp: The file path
+
+    Returns:
+        None
+    """
+
+    with open(fp, 'rb') as file:
+        while True:
+            read_bytes: bytes = file.read(4096)
+            if not read_bytes:
+                break
+            client.send(read_bytes)
+        print('\nEnvio do arquivo concluído!')
+
+
+send_file(file_path)
