@@ -3,10 +3,10 @@
 import socket
 import os
 
-server: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # Inicia o servidor
+server: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
 
-server.bind(('localhost', 30000))  # Associa a conexão socket ao meu endereço local
-server.listen(5)  # Espera alguém se conectar → Permite aceitar conexões. (Número de conexões não aceitas)
+server.bind(('localhost', 30000))
+server.listen(5)
 print('Servidor rodando...')
 
 
@@ -19,16 +19,16 @@ def receive_file():
     while True:
         socket_connection: socket.socket
         address: tuple
-        socket_connection, address = server.accept()  # Aceita conexão, retorna um novo socket e o endereço do client
+        socket_connection, address = server.accept() 
 
-        path_file: str = socket_connection.recv(4096).decode()  # Recebe o arquivo de 4096Bytes por vez.
-        file_name: str = path_file.split('\\')[-1]  # Pega o nome do arquivo
+        path_file: str = socket_connection.recv(4096).decode() 
+        file_name: str = path_file.split('\\')[-1]  
 
-        print(f'Nome do arquivo: {file_name}')  # Mostra nome do arquivo
+        print(f'Nome do arquivo: {file_name}') 
         path_directory: str = 'uploads/'
-        if not os.path.exists(path_directory):  # Se o diretório não existe, ele o cria
+        if not os.path.exists(path_directory): 
             os.mkdir(path_directory)
-        with open(path_directory + file_name, 'wb') as file:  # Recebe e escreve o arquivo em uploads/
+        with open(path_directory + file_name, 'wb') as file:  
             while True:
                 received_bytes: bytes = socket_connection.recv(4096)
                 if not received_bytes:
