@@ -15,10 +15,10 @@ def send_file(fp: str):
     """Sends a file to the server using sockets.
 
     Args:
-        fp: The file path
+        fp (str): The file path.
 
     Returns:
-        None
+        None.
     """
 
     with open(fp, 'rb') as file:
