@@ -2,13 +2,12 @@
 
 import socket
 
-client: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # inicia o socket
+client: socket.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
 
-client.connect(('localhost', 30000))  # conecta no servidor
+client.connect(('localhost', 30000))  
 
-file_path: str = str(input('Caminho do arquivo > '))  # endereço de onde vai ser upado
-
-client.send(file_path.encode())  # pega o arquivo, transforma em bytes e envia
+file_path: str = str(input('Caminho do arquivo > '))  
+client.send(file_path.encode())  
 
 
 def send_file(fp: str):
